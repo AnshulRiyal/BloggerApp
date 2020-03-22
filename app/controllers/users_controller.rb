@@ -5,12 +5,15 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    authorize User
     @users = User.all
+    # @users = policy_scope(User)
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    authorize User
   end
 
   # GET /users/new

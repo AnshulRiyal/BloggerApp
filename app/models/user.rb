@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   after_create :add_user_role
+  
+  include UserRoleMethods
 
   private
 
