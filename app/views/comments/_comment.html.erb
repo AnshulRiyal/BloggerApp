@@ -1,11 +1,13 @@
 <li>
   <%= comment.body %> -
 
-  <small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small>
-
-  <%= form_for [comment, Comment.new] do |f| %>
-    <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control", style: "max-width: 100%;display: block;" %><br/>
-    <%= f.submit "Reply", class: "btn btn-dark"  %>
+  <small><%= "#{comment.user.email}" %>:<%= time_ago_in_words(comment.created_at) %> ago</small>
+  
+  <% if comment.level.nil? || comment.level < 3 %>       
+    <%= form_for [comment, Comment.new] do |f| %>
+      <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control", style: "max-width: 100%;display: block;" %><br/>
+      <%= f.submit "Reply", class: "btn btn-dark"  %>
+    <% end %>
   <% end %>
 
   <ul>

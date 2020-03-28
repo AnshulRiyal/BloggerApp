@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @commentable.comments.new(comment_params)
+    @comment.user_id = current_user.try(:id)
     if @comment.save
       redirect_back fallback_location: root_path, notice: 'Your comment was successfully posted!'
     else
