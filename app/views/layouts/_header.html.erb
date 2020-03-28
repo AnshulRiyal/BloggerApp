@@ -7,6 +7,9 @@
     <% else %>
       <span class="mb-4 h2"><%= link_to('Login', new_user_session_path, {class: "btn btn-warning"}) %></span>
     <% end %>
+    <% if current_user&.roles&.pluck(:name)&.include?("admin") %>
+      <span class="mb-4 h2"><%= link_to('Admin', users_path, {class: "btn btn-warning"}) %></span>
+    <% end %>
     </div>
   </div>
 </nav>
