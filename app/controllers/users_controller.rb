@@ -14,15 +14,20 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     authorize User
+    @user = User.find params[:id]
   end
 
   # GET /users/new
   def new
-    @user = User.new
+    # Removed the registerable module from devise to make it work.
+    # authorize User
+    # @user = User.new
   end
 
   # GET /users/1/edit
   def edit
+    authorize User
+    @user = User.find params[:id]
   end
 
   # POST /users
@@ -44,6 +49,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user = User.find params[:id]
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -58,6 +64,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    @user = User.find params[:id]
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
@@ -81,6 +88,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email)
+    params.require(:user).permit(:first_name, :last_name, :email, role_ids: [])
   end
 end

@@ -1,10 +1,10 @@
-class UserPolicy < ApplicationPolicy
+class PostPolicy < ApplicationPolicy
 
-  attr_reader :logged_in_user, :user_record
+  attr_reader :logged_in_user, :post_record
 
-  def initialize(logged_in_user, user_record)
+  def initialize(logged_in_user, post_record)
     @logged_in_user = logged_in_user
-    @user_record = user_record
+    @post_record = post_record
   end
 
   def index?
@@ -15,12 +15,8 @@ class UserPolicy < ApplicationPolicy
     admin?
   end
 
-  def new?
-    admin?
-  end
-
   def edit?
-    admin?
+    logged_in_user.email == post_record.user.email
   end
 
   def update

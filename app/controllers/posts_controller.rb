@@ -3,7 +3,9 @@ class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts=current_user.posts if current_user.present?
+    # @posts=current_user.posts if current_user.present?
+    @posts=Post.all if current_user.present?
+
   end
 
   def show
@@ -20,10 +22,19 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find params[:id]
+    authorize @post
   end
 
   def update
-    @post.update(post_params)
+    # @post.update(post_params)
+    respond_to do |format|
+      if @post.update_attributes(post_params)
+        format.html { redirect_to( @post, notice: 'Post was successfully updated.') }
+      else
+        format.html { render :action => "edit" }
+      end
+    end
   end
 
   def destroy
