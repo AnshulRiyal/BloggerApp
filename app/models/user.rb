@@ -3,9 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :validatable
   has_many :role_users
-  has_many :roles, through: :role_users
+  has_many :roles, through: :role_users, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  # accepts_nested_attributes_for :role_users, allow_destroy: true
   after_create :add_user_role
   
   include UserRoleMethods
