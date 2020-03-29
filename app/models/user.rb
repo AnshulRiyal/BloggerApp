@@ -7,14 +7,16 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-  # accepts_nested_attributes_for :role_users, allow_destroy: true
-  after_create :add_user_role
+  accepts_nested_attributes_for :role_users, allow_destroy: true
+  after_create :add_user_role_and_status
   
   include UserRoleMethods
 
   private
 
-  def add_user_role
+  def add_user_role_and_status
     self.roles << Role.find_by(name: "default")
+    self.status = "active"
+    self.save!
   end
 end
