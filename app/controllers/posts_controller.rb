@@ -18,6 +18,7 @@ class PostsController < ApplicationController
   def create
     @post= Post.new(post_params)
     @post.user_id = current_user.try(:id)
+    # @post= current_user.posts.new(post_params)
     redirect_to @post if @post.save
   end
 

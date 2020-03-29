@@ -16,7 +16,7 @@
 
 <div class="break-text"></di><p align="justify"> <%=@post.post_text %></p>
 
-<large class="font-weight-bold text-danger">Submitted <%= time_ago_in_words(@post.created_at) %> ago</large>
+<large class="font-weight-bold text-danger"><%= "#{@post.user.email}" %> Submitted <%= time_ago_in_words(@post.created_at) %> ago</large>
 <hr>
 <% if @post.avatar.attached? %>
   <%= image_tag @post.avatar.variant(resize: '800x600'), class: "form-group auto-resize" %>
@@ -24,6 +24,7 @@
 </div>
 
 <% liked = Like.find_by( post: @post, user: current_user ) != nil %>
+<%= "#{@post.likes.count} ♥︎ " %>
 <% btn_color = liked ? "warning" : "default" %>
 
 <%= link_to "Like", post_likes_path( @post ), method: :get, class: "btn btn-#{btn_color} btn-primary", disabled: !user_signed_in? %>
