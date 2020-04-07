@@ -1,6 +1,8 @@
 <nav class="navbar navbar-light bg-dark">
   <div class="container" style="display: block;">
-    <%= image_tag "blogger.png",width: "50px", height: "50px", class: "pull-left" %>
+    <%= link_to root_path do %>
+      <%= image_tag "blogger.png",width: "50px", height: "50px", class: "pull-left" %>
+    <% end %>
     <div class="navbar-header pull-right">
     <% if user_signed_in? %>
       <span class="mb-4 h2"><%= link_to('Logout', destroy_user_session_path, {class: "btn btn-warning"}) %></span>
