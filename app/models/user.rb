@@ -17,6 +17,6 @@ class User < ApplicationRecord
   def add_user_role_and_status
     self.roles << Role.find_by(name: "default")
     self.status = "active"
-    self.save!
+    self.save
   end
 end
